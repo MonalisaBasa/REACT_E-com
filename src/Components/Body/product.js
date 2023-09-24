@@ -39,11 +39,11 @@ const productsArr = [
 
 
 const Product = () => {
-    const productList = productsArr.map((item) => {
+    const productList = productsArr.map((item,index) => {
         {console.log(item)}
         return(<ProductsItem
-          key={item.id} // Make sure to add a unique key prop when mapping elements
-          id={item.id}
+          key={item.index} // Make sure to add a unique key prop when mapping elements
+          id={item.index}
           title={item.title}
           price={item.price}
           image={item.imageUrl}

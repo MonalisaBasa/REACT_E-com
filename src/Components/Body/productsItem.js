@@ -7,6 +7,7 @@ import { Button } from 'react-bootstrap';
 
 
 const ProductsItem = (props) => {
+    const submitHandler = () =>{}
     console.log(props);
     return (
         <div className="col-sm-1 col-md-auto col-lg-4 m-4">
@@ -15,7 +16,7 @@ const ProductsItem = (props) => {
                 <img src={props.image} className="card-img-top img" alt={props.title} />
                 <div className="card-body d-flex justify-content-between">
                     <span className="card-text">${props.price}</span>
-                    <Button className="ms-5">Add To Cart</Button>
+                    <Button className="ms-5" onClick={submitHandler}>Add To Cart</Button>
                 </div>
             </div>
         </div>
