@@ -10,14 +10,35 @@ const ModalCart = (props) => {
         <Modal.Title>Cart</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-        <p>Item Name</p>
-        <div className='mb-2'>Price</div>
-        <div className='mb-2'>Quantity</div>
-        <div className='mb-2'>Total Amount</div>
+        <div className='row'>
+            <div className='col-3 ms-3 text'>
+                <u>ITEM</u>
+            </div>
+            <div className='col-3 text'>
+                <u>PRICE</u>
+            </div>
+            <div className='col-4 text'>
+                <u>QUANTITY</u>
+
+            </div>
+        </div>
+        <div className="row justify-content-end">
+            <div className="col-1 box me-4">Total </div>
+            <div className="col-1 box me-4"> ₹0</div>
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-3 me-5">
+              <button className="btn btn-primary text-white btn-lg">
+                PURCHASE
+              </button>
+            </div>
+          </div>
+        
     </Modal.Body>
     <Modal.Footer>
         <Button variant='secondary' onClick={props.handleClose}>Close</Button>
-        <Button variant='primary' onClick={props.handleClose}>Save Changes</Button>
+
+        {/* <Button variant='primary' onClick={props.handleClose}>Save Changes</Button> */}
     </Modal.Footer>
     </Modal>
       
