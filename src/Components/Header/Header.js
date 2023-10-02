@@ -27,8 +27,10 @@ import ModalCart from '../UI/Modal';
 // }
 const Header = (props) => {
   const cartCtx = useContext(CartContext);
+  // reduce method allow us to transform array of data into single value.
+  // reduce method rcv two arguments 
   const numberOfCartItems = cartCtx.items.reduce((currNumber, item) => {
-    return currNumber + item.UpdatedAmount;
+    return currNumber + item.amount;
   }, 0);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
@@ -60,6 +62,6 @@ const Header = (props) => {
           </Navbar>
           </>
         
-      )
+      );
 };
  export default Header;

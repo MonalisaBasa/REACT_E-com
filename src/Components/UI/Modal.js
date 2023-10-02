@@ -1,5 +1,16 @@
 import React from 'react';
 import {Modal,Button} from 'react-bootstrap';
+import Cart from '../Cart/Cart';
+import CartItems from '../Cart/CartItems';
+
+// const ModalOverlay = (props) => {
+//   return (
+//     <div>
+//       <div>{props.children}</div>
+//     </div>
+
+//   )
+// }
 
 const ModalCart = (props) => {
   return (
@@ -10,7 +21,7 @@ const ModalCart = (props) => {
         <Modal.Title>Cart</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-        <div className='row'>
+        {/* <div className='row'>
             <div className='col-3 ms-3 text'>
                 <u>ITEM</u>
             </div>
@@ -21,6 +32,7 @@ const ModalCart = (props) => {
                 <u>QUANTITY</u>
 
             </div>
+            <Cart/>
         </div>
         <div className="row justify-content-end">
             <div className="col-1 box me-4">Total </div>
@@ -32,11 +44,15 @@ const ModalCart = (props) => {
                 PURCHASE
               </button>
             </div>
-          </div>
+          </div> */}
+          <Cart/>
         
     </Modal.Body>
     <Modal.Footer>
         <Button variant='secondary' onClick={props.handleClose}>Close</Button>
+        <Button variant='secondary' onClick={props.handleClose}>Order</Button>
+
+
 
         {/* <Button variant='primary' onClick={props.handleClose}>Save Changes</Button> */}
     </Modal.Footer>

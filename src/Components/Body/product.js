@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ProductsItem from './productsItem';
 import img1 from '../../Images/Album 1.png';
 import img2 from '../../Images/Album 2.png';
@@ -10,13 +10,18 @@ const productsArr = [
         id: '1',
         title: 'Colors',
         price: 100,
-        imageUrl: img1,
+        imageUrl:img1,
+        // imageUrl:  "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
+        // quantity: 2,
     },
     {
         id: '2',
         title: 'Black and white Colors',
         price: 50,
         imageUrl: img2,
+        // imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
+        // quantity: 3,
+
 
     },
 
@@ -24,7 +29,9 @@ const productsArr = [
         id: '3',
         title: 'Yellow and Black Colors',
         price: 70,
-        imageUrl: img3,
+        imageUrl:img3,
+        // imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
+        // quantity: 1,
 
     },
     {
@@ -32,18 +39,22 @@ const productsArr = [
         title: 'Blue Color',
         price: 100,
         imageUrl:img4,
+        // imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
+        // quantity: 1,
 
     }
 ];
 
 
 
+
 const Product = () => {
-    const productList = productsArr.map((item,index) => {
-        {console.log(item)}
+    
+  const productList = productsArr.map((item,index) => {
+        // {console.log(item)}
         return(<ProductsItem
-          key={item.index} // Make sure to add a unique key prop when mapping elements
-          id={item.index}
+          key={index} // Make sure to add a unique key prop when mapping elements
+          id={item.id}
           title={item.title}
           price={item.price}
           image={item.imageUrl}

@@ -1,39 +1,59 @@
-import React, { useContext,useRef } from 'react';
+import React, { useContext,useRef, useState } from 'react';
 import './productsItem.css';
 // import ProductsArr from './product';
-import { Button,Form } from 'react-bootstrap';
+// import { Button,Form } from 'react-bootstrap';
 import CartContext from '../Store/CartContext';
+import ProductToCart from './productToCart';
 
 
 
 
 const ProductsItem = (props) => {
+
     const cartCtx = useContext(CartContext);
+    const price =`$${props.price.toFixed(2)}`;
+    const addToCartHandler = amount =>{
+        cartCtx.addItem({
+            id: props.id,
+            title: props.title,
+            price: props.price,
+            amount: amount,
+            image: props.image,
 
-    const Amountref = useRef();
+        });
+    };
+    // const[amountIsValid, setAmountIsValid] = useState(true);
 
-    const submitHandler = (event) => {
-        event.preventDefault();
-        const Amount = Amountref.current.value;
-        const UpdatedAmount = +Amount;
-        const Title = props.title;
-        const Price = props.price;
-        const id = props.id;
-        const image =`${props.image}`
-        if (UpdatedAmount.trim === 0 || UpdatedAmount < 1 || UpdatedAmount > 10) {
-            return;
-        }
-        const Data = {
-            Title,
-            Price,
-            UpdatedAmount,
-            id,
-            image,
-        };
-       cartCtx.addItem(Data);
-       console.log(cartCtx.items)
-        
-    }
+    // const amountRef = useRef();
+
+    // const submitHandler = (event) => {
+    //     event.preventDefault();
+    //     const enteredAmount = amountRef.current.value;
+    //     const enteredAmountNumber =  +enteredAmount;
+         
+    //     // const Title = props.title;
+    //     // const Price = props.price;
+    //     // const id = props.id;
+    //     // const image =`${props.image}`
+    //     if (enteredAmount.trim().length === 0 || enteredAmountNumber < 1 || enteredAmountNumber > 10) {
+    //        setAmountIsValid(false);
+    //        return;
+    //     }
+    //     //  add cart item handling logic here.
+
+    // //     const Data = {
+    // //         Title,
+    // //         Price,
+    // //         enteredAmountNumber,
+    // //         id,
+    // //         image,
+    // //     };
+    // //    cartCtx.addItem(Data);
+
+    // //   { console.log(cartCtx.items)};
+    // console.log(enteredAmountNumber);
+    //     props.onAddToCart(enteredAmountNumber);
+    // };
 
     // console.log(props);
     return (
@@ -43,25 +63,8 @@ const ProductsItem = (props) => {
                 <img src={props.image} className="card-img-top img" alt={props.title} />
                 <div className="card-body d-flex justify-content-between">
                     <span className="card-text">${props.price}</span>
-                    {/* <Button className="ms-5" >Add To Cart</Button> */}
-                    <Form onSubmit={submitHandler}>
-                        <Form.Group className="" controlId="formBasicEmail">
-                            <Form.Label className="ms-5 mt-0">Amount</Form.Label>
-                            <Form.Control
-                                ref={Amountref}
-                                type="number"
-                                min="1"
-                                max="10"
-                                className="ms-5 mb-2"
-                                step="1"
-                                defaultValue="1"
-                                style={{ width: "4rem", height: "2rem" }}
-                           />
-                             <Button type="submit" className="ms-5">
-                                 Add To Cart
-                             </Button>
-                         </Form.Group>
-                     </Form>
+                    <ProductToCart id={props.id} onAddToCart={addToCartHandler}/>
+                   
                 </div>
             </div>
         </div>
