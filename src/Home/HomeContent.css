@@ -1,0 +1,27 @@
+/* .homePage {
+    background-color: rgb(73, 94, 78);
+    margin-top: 1px;
+    color: white;
+    text-align: center;
+    height: 18rem;
+  } */
+  /* h1 {
+    font-size: 80px;
+  } */
+  /* .textSize {
+    font-family: bolder;
+    font-size: 150%;
+  } */
+  
+  h2{
+    text-align:center;
+  }
+  .homeItem {
+    border-bottom: 1px solid black;
+    text-align: center;
+  }
+  @media screen and (max-width: 500px) {
+    h1 {
+      font-size: 40px;
+    }
+  }

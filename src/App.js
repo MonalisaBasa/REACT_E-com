@@ -7,13 +7,16 @@ import Footer from './Components/Footer/Footer';
 import CartProvider from './Components/Store/CartProvider';
 import  {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import AboutPage from './Pages/AboutPage';
+import HomePage from './Pages/HomePage';
 // import Cart from './Components/Cart/Cart';
 
 const router = createBrowserRouter([
   // ex:https://example.com/,here example.com is domain, path is the prt after the domain
   // path define where we need to show this page and element define component .
-  {path:'/', element: <AboutPage/>},
-  {}
+  {path:"/", element:<HomePage/>},
+  // {path:"/store",element:<StorePage/>},
+  {path:"/about", element: <AboutPage/>},
+ 
 ])
 function App() {
  
