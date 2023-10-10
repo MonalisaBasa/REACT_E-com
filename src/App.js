@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Header from './Components/Header/Header';
 import Title from './Components/Title/Title'
@@ -8,6 +8,7 @@ import CartProvider from './Components/Store/CartProvider';
 import  {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import AboutPage from './Pages/AboutPage';
 import HomePage from './Pages/HomePage';
+import MoviesList from './Movie/MoviesList';
 // import Cart from './Components/Cart/Cart';
 
 const router = createBrowserRouter([
@@ -19,25 +20,57 @@ const router = createBrowserRouter([
  
 ])
 function App() {
+
+  const [movies,setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState([false]);
+
+  async function fetchMoviesHandler(){
+    setIsLoading(true);
+    const response = await fetch('https://swapi.dev/api/films/')
+   const data = await response.json();
+    // .then((response) => {
+    //   return response.json();
+    // })
+   
+      const transformedMovies = data.results.map((movieData) => {
+        return {
+          id:movieData.episode_id,
+          title:movieData.title,
+          openingText:movieData.opening_crawl,
+          releasedate:movieData.release_date
+        }
+      });
+     setMovies(data.results);
+     setIsLoading(false);
+   
+  }
  
   return (
-    // <>
-    <RouterProvider router={router}/>
-    // <CartProvider>
-    //  <header>
-    //   <Header/>
-    //   <Title/>
-    //  </header>
-    //   <main>
-    //     <Product/>
-    //     {/* <Cart/> */}
-    //   </main>
-    //   <footer>
-    //     <Footer/>
-    //   </footer>
-    //   </CartProvider>
+    // <RouterProvider router={router}/>
+    <>
+    {/* <CartProvider>
+     <header>
+      <Header/>
+      <Title/>
+     </header>
+      <main>
+        <Product/>
+        <Cart/>
+      </main>
+      <footer>
+        <Footer/>
+      </footer>
+      </CartProvider> */}
+      <section>
+        <button onClick={fetchMoviesHandler}>Fetch Movies</button>
+
+      </section>
+      <section>
+        {!isLoading && <MoviesList movies={movies}/>}
+        {isLoading && <p>Loading...</p>}
+      </section>
     
-    // </>
+    </>
   );
 }
 
