@@ -18,25 +18,28 @@ const router = createBrowserRouter([
   // {path:"/store",element:<StorePage/>},
   {path:"/about", element: <AboutPage/>},
  
-])
+]);
 function App() {
 
   const [movies,setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const[error,setError] = useState(null);
+  const [cancelRetry,setCancelRetry] = useState(false);
 
-  async function fetchMoviesHandler() {
+  async function fetchMoviesHandler(retryCount = 3) {
     setIsLoading(true);
     setError(null);
-    // try{
+    setCancelRetry(false);
+   
+    try{
     const response = await fetch('https://swapi.dev/api/films/');
     
    const data = await response.json();
    console.log(data)
 
-  //  if(!response.ok){
-  //   throw new Error('Something went wrong...Retrying!');
-  //  }
+   if(!response.ok){
+    throw new Error('Something went wrong...Retrying!');
+   }
     
       const transformedMovies = data.results.map((movieData) => {
         return {
@@ -48,35 +51,46 @@ function App() {
       });
       console.log(transformedMovies);
      setMovies(transformedMovies);
-    // }
-    // catch(error){
-    //   setError(error.message);
+    }
+    catch(error){
+      if(cancelRetry){
+        return;
+      }
+      setError(error.message);
 
-    //   if(retryCount > 0){
-    //     setTimeout(() => fetchMoviesHandler(retryCount -1),5000)
-    //   }else{
-    //     console.log('Maximum retry attempts reached');
-    //   }
-      
-    // }
-    setIsLoading(false);
-   
+      if(retryCount > 0){
+        setTimeout(() => fetchMoviesHandler(retryCount -1),5000)
+      }else{
+        console.log('Maximum retry attempts reached');
+      } 
+        setIsLoading(false);
+   }
+  };
+
+  const handleCancelRetry = () =>{
+    setCancelRetry(true);
   }
+
   
 
-  // let content = <p>Found no movies </p>
+  let content = <p>Found no movies </p>
 
-  // if(movies.length > 0 ){
-  //   content = <MoviesList movies={movies}/>
-  // }
+  if(movies.length > 0 ){
+    content = <MoviesList movies={movies}/>
+  }
 
-  // if (error) {
-  //   content = <p>{error}</p>
-  // }
+  if (error) {
+    content = (
+      <>
+    <p>{error}</p>
+    <button onClick = {handleCancelRetry}>Cancel Retry</button>
+    </>
+    );
+  }
 
-  // if(isLoading){
-  //   content = <p>Loading...</p>
-  // }
+  if(isLoading){
+    content = <p>Loading...</p>
+  }
  
   return (
     // <RouterProvider router={router}/>
@@ -99,11 +113,11 @@ function App() {
 
       </section>
       <section>
-        {!isLoading && movies.length > 0 && <MoviesList movies={movies}/>}
+        {/* {!isLoading && movies.length > 0 && <MoviesList movies={movies}/>}
         {!isLoading && movies.length === 0 && <p>Found no movies</p>}
-        {/* {!isLoading && error && <p>{error} </p>} */}
-        {isLoading && <p>Loading...</p>}
-        {/* {content} */}
+        {!isLoading && error && <p>{error} </p>}
+        {isLoading && <p>Loading...</p>} */}
+        {content}
       </section>
     
     </>
