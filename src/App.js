@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect,useMemo,useCallback} from 'react';
 import './App.css';
 import Header from './Components/Header/Header';
 import Title from './Components/Title/Title'
@@ -26,10 +26,10 @@ function App() {
   const[error,setError] = useState(null);
   const [cancelRetry,setCancelRetry] = useState(false);
 
-  useEffect(() => {
-    // Fetch movies when the component mounts
-    fetchMoviesHandler();
-  }, []); // The empty dependency array ensures that this effect runs only once on mount
+  // useEffect(() => {
+  //   // Fetch movies when the component mounts
+  //   fetchMoviesHandler();
+  // }, []); // The empty dependency array ensures that this effect runs only once on mount
 
   async function fetchMoviesHandler(retryCount = 3) {
     setIsLoading(true);
@@ -56,7 +56,7 @@ function App() {
       });
       console.log(transformedMovies);
      setMovies(transformedMovies);
-     setIsLoading(false);
+     setIsLoading(false);//setIsLoading is false on successful response.
     }
     catch(error){
       console.log(error);
@@ -74,18 +74,18 @@ function App() {
    }
   };
 
-  const handleCancelRetry = () =>{
+  const handleCancelRetry = useCallback(() =>{
     setCancelRetry(true);
-  }
+  },[]);
 
   
 
-  let content = <p>Found no movies </p>
-
+  // let content = <p>Found no movies </p>
+const content = useMemo(() => {
   if(movies.length > 0 ){
     content = <MoviesList movies={movies}/>
   }
-  console.log('Render Content:', content);
+  // console.log('Render Content:', content);
 
   if (error) {
     content = (
@@ -99,7 +99,15 @@ function App() {
   if(isLoading){
     content = <p>Loading...</p>
   }
- 
+  
+  return <p>Found no movies </p>;
+},[movies,error,isLoading,handleCancelRetry]);
+
+useEffect(()=>{
+   // Fetch movies when the component mounts
+   fetchMoviesHandler();
+  }, [fetchMoviesHandler]);
+
   return (
     // <RouterProvider router={router}/>
     <>
