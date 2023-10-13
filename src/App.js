@@ -51,8 +51,10 @@ function App() {
       });
       console.log(transformedMovies);
      setMovies(transformedMovies);
+     setIsLoading(false);
     }
     catch(error){
+      console.log(error);
       if(cancelRetry){
         return;
       }
@@ -62,8 +64,8 @@ function App() {
         setTimeout(() => fetchMoviesHandler(retryCount -1),5000)
       }else{
         console.log('Maximum retry attempts reached');
-      } 
         setIsLoading(false);
+      } 
    }
   };
 
@@ -78,6 +80,7 @@ function App() {
   if(movies.length > 0 ){
     content = <MoviesList movies={movies}/>
   }
+  console.log('Render Content:', content);
 
   if (error) {
     content = (
