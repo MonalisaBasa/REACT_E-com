@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import './App.css';
 import Header from './Components/Header/Header';
 import Title from './Components/Title/Title'
@@ -25,6 +25,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const[error,setError] = useState(null);
   const [cancelRetry,setCancelRetry] = useState(false);
+
+  useEffect(() => {
+    // Fetch movies when the component mounts
+    fetchMoviesHandler();
+  }, []); // The empty dependency array ensures that this effect runs only once on mount
 
   async function fetchMoviesHandler(retryCount = 3) {
     setIsLoading(true);
@@ -112,7 +117,7 @@ function App() {
       </footer>
       </CartProvider> */}
       <section>
-        <button onClick={fetchMoviesHandler}>Fetch Movies</button>
+        {/* <button onClick={fetchMoviesHandler}>Fetch Movies</button> */}
 
       </section>
       <section>
