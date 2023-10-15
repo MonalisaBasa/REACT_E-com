@@ -19,6 +19,9 @@ const Header = () => {
         <Link to="/about" className="text-white fs-5 fw-bold ">
           About
         </Link>
+        <Link to="/contact" className="text-white fs-5 fw-bold ">
+          Contact Us
+        </Link>
         {/* <NavLink className="text-white fs-3 fw-bold px-10" to="/about"
         >
           About

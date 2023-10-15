@@ -8,7 +8,8 @@ import CartProvider from './Components/Store/CartProvider';
 import  {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import AboutPage from './Pages/AboutPage';
 import HomePage from './Pages/HomePage';
-import MoviesList from './Movie/MoviesList';
+import ContactPage from './Pages/ContactPage';
+
 // import Cart from './Components/Cart/Cart';
 
 const router = createBrowserRouter([
@@ -17,100 +18,15 @@ const router = createBrowserRouter([
   {path:"/", element:<HomePage/>},
   // {path:"/store",element:<StorePage/>},
   {path:"/about", element: <AboutPage/>},
+  {path:"/contact",element: <ContactPage/>}
  
 ]);
 function App() {
 
-  const [movies,setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const[error,setError] = useState(null);
-  const [cancelRetry,setCancelRetry] = useState(false);
-
-  // useEffect(() => {
-  //   // Fetch movies when the component mounts
-  //   fetchMoviesHandler();
-  // }, []); // The empty dependency array ensures that this effect runs only once on mount
-
-  async function fetchMoviesHandler(retryCount = 3) {
-    setIsLoading(true);
-    setError(null);
-    setCancelRetry(false);
-   
-    try{
-    const response = await fetch('https://swapi.dev/api/films/');
-    
-   const data = await response.json();
-   console.log(data)
-
-   if(!response.ok){
-    throw new Error('Something went wrong...Retrying!');
-   }
-    
-      const transformedMovies = data.results.map((movieData) => {
-        return {
-          id:movieData.episode_id,
-          title:movieData.title,
-          openingText:movieData.opening_crawl,
-          releaseDate:movieData.release_date
-        }
-      });
-      console.log(transformedMovies);
-     setMovies(transformedMovies);
-     setIsLoading(false);//setIsLoading is false on successful response.
-    }
-    catch(error){
-      console.log(error);
-      if(cancelRetry){
-        return;
-      }
-      setError(error.message);
-
-      if(retryCount > 0){
-        setTimeout(() => fetchMoviesHandler(retryCount -1),5000)
-      }else{
-        console.log('Maximum retry attempts reached');
-        setIsLoading(false);
-      } 
-   }
-  };
-
-  const handleCancelRetry = useCallback(() =>{
-    setCancelRetry(true);
-  },[]);
-
-  
-
-  // let content = <p>Found no movies </p>
-const content = useMemo(() => {
-  if(movies.length > 0 ){
-    content = <MoviesList movies={movies}/>
-  }
-  // console.log('Render Content:', content);
-
-  if (error) {
-    content = (
-      <>
-    <p>{error}</p>
-    <button onClick = {handleCancelRetry}>Cancel Retry</button>
-    </>
-    );
-  }
-
-  if(isLoading){
-    content = <p>Loading...</p>
-  }
-  
-  return <p>Found no movies </p>;
-},[movies,error,isLoading,handleCancelRetry]);
-
-useEffect(()=>{
-   // Fetch movies when the component mounts
-   fetchMoviesHandler();
-  }, [fetchMoviesHandler]);
-
+ 
   return (
-    // <RouterProvider router={router}/>
     <>
+    <RouterProvider router={router}/>
     {/* <CartProvider>
      <header>
       <Header/>
@@ -124,17 +40,7 @@ useEffect(()=>{
         <Footer/>
       </footer>
       </CartProvider> */}
-      <section>
-        {/* <button onClick={fetchMoviesHandler}>Fetch Movies</button> */}
-
-      </section>
-      <section>
-        {/* {!isLoading && movies.length > 0 && <MoviesList movies={movies}/>}
-        {!isLoading && movies.length === 0 && <p>Found no movies</p>}
-        {!isLoading && error && <p>{error} </p>}
-        {isLoading && <p>Loading...</p>} */}
-        {content}
-      </section>
+    
     
     </>
   );
