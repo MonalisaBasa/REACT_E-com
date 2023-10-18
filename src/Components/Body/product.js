@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 import ProductsItem from './productsItem';
 import img1 from '../../Images/Album 1.png';
 import img2 from '../../Images/Album 2.png';
@@ -50,16 +51,20 @@ const productsArr = [
 
 const Product = () => {
     
-  const productList = productsArr.map((item,index) => {
-        // {console.log(item)}
-        return(<ProductsItem
+  const productList = productsArr.map((item,index) => (
+   
+    <Link key={index} to={`/products/${item.id}`}>
+        {/* // {console.log(item)} */}
+        <ProductsItem
           key={index} // Make sure to add a unique key prop when mapping elements
           id={item.id}
           title={item.title}
           price={item.price}
           image={item.imageUrl}
-        />)
-        });
+        />
+        </Link>
+       
+        ));
         
       return (
         <>
