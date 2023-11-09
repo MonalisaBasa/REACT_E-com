@@ -8,7 +8,8 @@ const Header = () => {
     <Navbar bg="dark">
     
       <Container>
-      <Nav className=" me-5 ">
+      <Nav className="d-flex justify-content-center me-3  ">
+      <div className="d-flex justify-justify-content-center position-relative start-50">
         <Link to="/Homepage" className="text-white fs-5 fw-bold me-3" style={{textDecoration: 'none'}} >
           HOME
         </Link>
@@ -29,6 +30,7 @@ const Header = () => {
         >
           About
         </NavLink> */}
+        </div>
       </Nav>
       
       </Container>

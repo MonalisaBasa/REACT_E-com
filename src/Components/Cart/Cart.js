@@ -10,7 +10,7 @@ import ModalCart from '../UI/Modal';
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
   console.log(cartCtx.items);
-  
+
 
   // const TotalUpdatedAmount = cartCtx.totalAmount;
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`
@@ -23,7 +23,7 @@ const Cart = (props) => {
     cartCtx.removeItem(id);
   }
 
-  const purchaseHandler = ()=>{
+  const purchaseHandler = () => {
     alert("Thanks for purchase!!");
   }
 
@@ -38,7 +38,7 @@ const Cart = (props) => {
   //     </li>
   //   })
   // const cartItems = (
- 
+
   //   <ul>
   // {cartCtx.items.map((item) => (
   //   <CartItem
@@ -53,47 +53,52 @@ const Cart = (props) => {
   // ))}
   // </ul>
   // );
-  
+
   // const hasItem = cartCtx.items.length > 0;
   return (
     <React.Fragment>
       {cartCtx.items.map((item) => (
         <div>
+          <div
+            className="row"
+            key={item.id}>
+            <div className="col-3 ms-3 text">
+              <u>ITEM</u>
+              <div className="cartImage">
+                <img
+                  src={`${item.image}`}
+                  width="80px"
+                  height="80px"
+                  className="mb-2 mt-2"
+                  alt={item.title}
+                />
+                {item.title}
+              </div>
+            </div>
+            <div className="col-3 text">
+              <u>PRICE</u>
+              <p>{item.price}</p>
+            </div>
+            <div className="col-5 text">
+              <u style={{ display: 'block' }}>QUANTITY</u>
+              <div className="d-flex justify-content-around">
+                <p>{item.amount}</p>
 
-        <div className="row" key={item.id}>
-          <div className="col-3 ms-3 text">
-            <u>ITEM</u>
-            <div className="cartImage">
-              <img
-                src={`${item.image}`}
-                width="80px"
-                height="80px"
-                className="mb-2 mt-2"
-                alt={item.title}
-              />
-              {item.title}
+
+                <div>
+                  <p><button
+                    className="btn btn-danger btn-sm"
+                    onClick={() =>
+                      cartItemRemoveHandler(item.id)}
+                  >
+                    Remove
+                  </button>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="col-3 text">
-            <u>PRICE</u>
-            <p>{item.price}</p>
-          </div>
-          <div className="col-4 text">
-            <u>QUANTITY</u>
-            <p>{item.amount}</p>
-            
-          </div>
-          
         </div>
-        <div>
-        <p><button
-          className="btn btn-danger"
-          onClick={() => cartItemRemoveHandler(item.id)}
-        >
-          -
-        </button></p>
-      </div>
-      </div>
       ))}
       <div className="row justify-content-start">
         <div className="col-1 box me-4">
@@ -111,7 +116,7 @@ const Cart = (props) => {
           </button>
         </div>
       </div>
-      
+
     </React.Fragment>
   );
 };

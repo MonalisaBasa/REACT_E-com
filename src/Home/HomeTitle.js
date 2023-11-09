@@ -11,7 +11,7 @@ const HomeTitle = () => {
         <h2 className='heading' >The Generics</h2>
         <button className=' mybutton' >Get our Latest Album</button>
        <div>
-       {/* <button className="  playbtn">►</button> */}
+       <button className="  playbtn">►</button>
        {/* <Button variant="info" style={{ borderRadius: "50%", margin: 10 }}>
           <BiPlay />
         </Button> */}

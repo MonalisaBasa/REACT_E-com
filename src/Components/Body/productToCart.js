@@ -13,8 +13,14 @@ const ProductToCart = (props) => {
 
        props.onAddToCart(enteredAmountNumber);
 
+       SuccesfullyAdded();
+
 
    }
+   const SuccesfullyAdded = ()=>{
+    alert(`Your Product is added to the cart`)
+   }
+
 
    
 
@@ -36,7 +42,7 @@ const ProductToCart = (props) => {
                                 defaultValue="1"
                                 style={{ width: "4rem", height: "2rem" }}
                            />
-                             <Button type="submit" className="ms-5">
+                             <Button type="submit" className="ms-5" onClick={SuccesfullyAdded}>
                                  Add To Cart
                              </Button>
                              {/* {!amountIsValid && <p>Please enter a valid amount(1-10)</p>} */}
