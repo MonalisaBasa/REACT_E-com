@@ -53,16 +53,25 @@ const Product = () => {
     
   const productList = productsArr.map((item,index) => (
    
-    <Link key={index} to={`/products/${item.id}`}>
-        {/* // {console.log(item)} */}
-        <ProductsItem
-          key={index} // Make sure to add a unique key prop when mapping elements
-          id={item.id}
-          title={item.title}
-          price={item.price}
-          image={item.imageUrl}
-        />
-        </Link>
+    // <Link key={index} to={`/products/${item.id}`}>
+    //     {/* // {console.log(item)} */}
+    //     <ProductsItem
+    //       key={index} // Make sure to add a unique key prop when mapping elements
+    //       id={item.id}
+    //       title={item.title}
+    //       price={item.price}
+          
+    //       image={item.imageUrl}
+    //     />
+    //     </Link>
+         <ProductsItem
+         key={index} // Make sure to add a unique key prop when mapping elements
+         id={item.id}
+         title={item.title}
+         price={item.price}
+         
+         image={item.imageUrl}
+       />
        
         ));
         

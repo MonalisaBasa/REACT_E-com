@@ -47,10 +47,7 @@ const ProductDetailPage = () => {
   const { productId } = useParams();
 //   // console.log(productId);
 //   //When you pass 10 as the second parameter, you are specifying that the input string (productId in this case) is in base-10, which is the decimal numeral system. 
-  // const productIdNumber = parseInt(productId, 10);
-
-//   // Find the selected product based on productId
-// console.log(productsArr);
+ 
   const selectedProduct = productsArr.find((product) => product.id === productId);
 console.log(selectedProduct)
 
@@ -61,7 +58,7 @@ console.log(selectedProduct)
 
   return (
     <div>
-      <p>I am product detail page</p>
+      {/* <p>I am product detail page</p> */}
       <h2>{selectedProduct.title}</h2>
       <img src={selectedProduct.imageUrl} alt={selectedProduct.title} />
       <p>Price: ${selectedProduct.price}</p>

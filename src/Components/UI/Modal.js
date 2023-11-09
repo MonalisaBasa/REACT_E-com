@@ -1,16 +1,6 @@
 import React from 'react';
 import {Modal,Button} from 'react-bootstrap';
-import Cart from '../Cart/Cart';
-import CartItems from '../Cart/CartItems';
-
-// const ModalOverlay = (props) => {
-//   return (
-//     <div>
-//       <div>{props.children}</div>
-//     </div>
-
-//   )
-// }
+import Cart from '../Cart/Cart'
 
 const ModalCart = (props) => {
   return (

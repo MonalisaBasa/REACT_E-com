@@ -9,19 +9,22 @@ const Header = () => {
     
       <Container>
       <Nav className=" me-5 ">
-        <Link to="/" className="text-white fs-5 fw-bold " >
-          Home
+        <Link to="/Homepage" className="text-white fs-5 fw-bold me-3" style={{textDecoration: 'none'}} >
+          HOME
         </Link>
         {/* <NavLink className="text-white fs-5 fw-bold " to="/home">Home</NavLink> */}
-        <Link to="/store" className="text-white fs-5 fw-bold ">
-          Store
+        <Link to="/store" className="text-white fs-5 fw-bold me-3 " style={{textDecoration: 'none'}}>
+          STORE
         </Link>
-        <Link to="/about" className="text-white fs-5 fw-bold ">
-          About
+        <Link to="/about" className="text-white fs-5 fw-bold me-3 " style={{textDecoration: 'none'}}>
+          ABOUT
         </Link>
-        <Link to="/contact" className="text-white fs-5 fw-bold ">
-          Contact Us
+        <Link to="/contact" className="text-white fs-5 fw-bold me-3 " style={{textDecoration: 'none'}}>
+          CONTACT US
         </Link>
+        {/* <Link to="/Authform" className="text-white fs-5 fw-bold ">
+          Login
+        </Link> */}
         {/* <NavLink className="text-white fs-3 fw-bold px-10" to="/about"
         >
           About

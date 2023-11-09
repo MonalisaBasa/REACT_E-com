@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../About/Navbar';
 import HomeTitle from '../Home/HomeTitle';
 import HomeContent from '../Home/HomeContent';
+import Footer from '../About/Footer';
 
 
 const HomePage = () => {
@@ -10,6 +11,7 @@ const HomePage = () => {
          <Navbar/>
         <HomeTitle/> 
         <HomeContent/>
+        <Footer/>
     
       
     </>

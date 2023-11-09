@@ -1,0 +1,19 @@
+/* .text {
+    font-weight: bolder;
+    font-size: larger;
+  }
+  .box {
+    border: 1px solid black;
+    width: 30%;
+  
+    align-items: end;
+    justify-content: end;
+  } */
+  .total {
+    /* display: flex; */
+    justify-content: space-between;
+    /* align-items: center; */
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 2rem 0;
+  }

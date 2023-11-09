@@ -1,0 +1,6 @@
+.custom-modal {
+    width: 80%; /* Adjust the width as per your requirement */
+    max-width: 800px; /* Set a maximum width if needed */
+    margin: 0 auto; /* Center the modal horizontally */
+    
+  }

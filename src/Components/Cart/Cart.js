@@ -1,51 +1,65 @@
 import React, { useContext } from 'react';
 import CartContext from '../Store/CartContext';
+import { Button } from 'react-bootstrap';
+import CartItem from '../Cart/CartItems';
+import ModalCart from '../UI/Modal';
 
 
 // import './Cart.css';
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
-  // const TotalUpdatedAmount = cartCtx.totalAmount;
-  const totalAmount =`$${cartCtx.totalAmount.toFixed(2)}`
+  console.log(cartCtx.items);
+  
 
-  const cartItemAddHandler = item =>{
-    cartCtx.addItem({...item,amount:1});
+  // const TotalUpdatedAmount = cartCtx.totalAmount;
+  const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`
+
+  const cartItemAddHandler = item => {
+    cartCtx.addItem({ ...item, amount: 1 });
   };
 
   const cartItemRemoveHandler = id => {
     cartCtx.removeItem(id);
   }
 
+  const purchaseHandler = ()=>{
+    alert("Thanks for purchase!!");
+  }
+
+
+  //   let cartItem;
+  //   let cartPrice;
+  //   let cartTitle;
+  // console.log(cartCtx.items);
+  //   const cartItems = cartCtx.items.map((item) => {
+  //     <li>
+  //       {(cartItem = item.image)} {(cartPrice = item.Price)} {(cartTitle = item.name)}
+  //     </li>
+  //   })
+  // const cartItems = (
  
-//   let cartItem;
-//   let cartPrice;
-//   let cartTitle;
-// console.log(cartCtx.items);
-//   const cartItems = cartCtx.items.map((item) => {
-//     <li>
-//       {(cartItem = item.image)} {(cartPrice = item.Price)} {(cartTitle = item.name)}
-//     </li>
-//   })
-// const cartItem = (
-//   <ul>
-// {cartCtx.items.map((item) => (
-//   <CartItems
-//   key={item.id}
-//   title={item.title}
-//   price={item.price}
-//   amount={item.amount}
-//   image={item.image}
-//   onRemove={cartItemAddHandler.bind(null,item.id)}
-//   onAdd={cartItemAddHandler.bind(null,item)}
-// />
-// ))}
-// </ul>
-// );
+  //   <ul>
+  // {cartCtx.items.map((item) => (
+  //   <CartItem
+  //   key={item.id}
+  //   title={item.title}
+  //   price={item.price}
+  //   amount={item.amount}
+  //   image={item.image}
+  //   onRemove={cartItemRemoveHandler.bind(null,item.id)}
+  //   onAdd={cartItemAddHandler.bind(null,item)}
+  // />
+  // ))}
+  // </ul>
+  // );
+  
+  // const hasItem = cartCtx.items.length > 0;
   return (
     <React.Fragment>
-     {cartCtx.items.map((item) => (
-     
+      {cartCtx.items.map((item) => (
+        <div>
+
         <div className="row" key={item.id}>
           <div className="col-3 ms-3 text">
             <u>ITEM</u>
@@ -67,8 +81,19 @@ const Cart = (props) => {
           <div className="col-4 text">
             <u>QUANTITY</u>
             <p>{item.amount}</p>
+            
           </div>
+          
         </div>
+        <div>
+        <p><button
+          className="btn btn-danger"
+          onClick={() => cartItemRemoveHandler(item.id)}
+        >
+          -
+        </button></p>
+      </div>
+      </div>
       ))}
       <div className="row justify-content-start">
         <div className="col-1 box me-4">
@@ -81,11 +106,12 @@ const Cart = (props) => {
       </div>
       <div className="row justify-content-center">
         <div className="col-3 me-5">
-          <button className="btn btn-primary text-white btn-lg">
+          <button className="btn btn-primary text-white btn-lg" onClick={purchaseHandler}>
             PURCHASE
           </button>
         </div>
       </div>
+      
     </React.Fragment>
   );
 };
