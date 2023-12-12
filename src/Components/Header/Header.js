@@ -7,27 +7,6 @@ import AuthContext from '../Store/AuthContext';
 // import Product from '../Body/product';
 import ModalCart from '../UI/Modal';
 
-
-// const Header = () => {
-//   return (
-//     <div>
-//     <Navbar bg="dark" expand="sm" variant="dark" className='my-12'>
-//     <Container className='justify-content-center ' >
-//       <Nav>
-//       <Nav.Link>HOME</Nav.Link>
-//       <Nav.Link>STORE</Nav.Link>
-//       <Nav.Link>ABOUT</Nav.Link>
-//       </Nav>
-
-//     </Container>
-
-//     <Button variant="outline-primary text-white mx-2">Cart <span>0</span></Button>
-
-
-//   </Navbar>
-//     </div>
-//   )
-// }
 const Header = (props) => {
   const cartCtx = useContext(CartContext);
   const authCtx = useContext(AuthContext);
@@ -40,10 +19,14 @@ const Header = (props) => {
   };
   // reduce method allow us to transform array of data into single value.
   // reduce method rcv two arguments 
-  const numberOfCartItems = cartCtx.items.reduce((currNumber, item) => {
-    return currNumber + item.amount;
-  }, 0);
-  console.log(numberOfCartItems);
+  // const numberOfCartItems = cartCtx.items.reduce((currNumber, item) => {
+  //   console.log(cartCtx.items);
+  //   return currNumber + item.amount;
+  // }, 0);
+  const numberOfCartItems = Array.isArray(cartCtx.items)
+  ? cartCtx.items.reduce((currNumber, item) => currNumber + item.amount, 0)
+  : 0;
+  // console.log(numberOfCartItems);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);

@@ -4,6 +4,7 @@ import './productsItem.css';
 // import { Button,Form } from 'react-bootstrap';
 import CartContext from '../Store/CartContext';
 import ProductToCart from './productToCart';
+import { Await } from 'react-router-dom';
 
 
 
@@ -14,6 +15,8 @@ const ProductsItem = (props) => {
     const price =`$${props.price.toFixed(2)}`;
     const addToCartHandler = amount =>{
         cartCtx.addItem({
+        // const addToCartHandler = async(amount) =>{
+        //     await cartCtx.addItem({
             id: props.id,
             title: props.title,
             price: props.price,
@@ -21,6 +24,7 @@ const ProductsItem = (props) => {
             image: props.image,
 
         });
+        
     };
     // const[amountIsValid, setAmountIsValid] = useState(true);
 
@@ -64,6 +68,7 @@ const ProductsItem = (props) => {
                 <div className="card-body d-flex justify-content-between">
                     <span className="card-text">${props.price}</span>
                     <ProductToCart id={props.id} onAddToCart={addToCartHandler}/>
+                    {/* <ProductToCart id={props.id}/> */}
                    
                 </div>
             </div>
