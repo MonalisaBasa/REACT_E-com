@@ -13,9 +13,9 @@ import "../node_modules/bootstrap/dist/css/bootstrap.css";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthContextProvider>
-  <React.StrictMode>
+  {/* <React.StrictMode> */}
     <App />
-  </React.StrictMode>
+  {/* </React.StrictMode> */}
    </AuthContextProvider> 
   // <BrowserRouter>
   //    <App/>

@@ -19,13 +19,16 @@ const Header = (props) => {
   };
   // reduce method allow us to transform array of data into single value.
   // reduce method rcv two arguments 
-  // const numberOfCartItems = cartCtx.items.reduce((currNumber, item) => {
-  //   console.log(cartCtx.items);
-  //   return currNumber + item.amount;
-  // }, 0);
+
   const numberOfCartItems = Array.isArray(cartCtx.items)
   ? cartCtx.items.reduce((currNumber, item) => currNumber + item.amount, 0)
   : 0;
+
+  // const numberOfCartItems =
+  // Array.isArray(cartCtx.items) || typeof cartCtx.items !== 'object'
+  //   ? 0
+  //   : Object.values(cartCtx.items).reduce((currNumber, item) => currNumber + item.amount, 0);
+
   // console.log(numberOfCartItems);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);

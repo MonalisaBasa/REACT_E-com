@@ -7,10 +7,7 @@ const CartContext = React.createContext({
         // console.log(item);
     },
     removeItem: (id) => {},
-    // email:'',
-    // setEmail: () => {
-       
-    // },
+   
   
    
 });

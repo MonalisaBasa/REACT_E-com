@@ -11,12 +11,32 @@ import AuthContext from './AuthContext';
 
 
 const cartReducer = (state, action) => {
+  // console.log(action.totalAmount);
+  // console.log(state);
  
   if (action.type === 'ADD') {
 
-    const updatedTotalAmount = 
-    state.totalAmount + action.item.price *  action.item.amount;
-    // console.log(updatedTotalAmount);
+    const item = action.item;
+    // console.log(item);
+
+    // const updatedTotalAmount = 
+    // state.totalAmount + item.price * item.amount;
+    // console.log( state.totalAmount);
+
+    
+// console.log(Object.values(item));
+const data=Object.values(item);
+
+//
+  let updatedTotalAmount = state.totalAmount;
+
+for (const key of data) {
+  console.log(typeof key.price,typeof key.amount);
+
+  updatedTotalAmount += (key.price * key.amount);
+}
+console.log(updatedTotalAmount)
+    
 
     const existingCartItemIndex = state.items.findIndex((item) => item.id === action.item.id);
 
@@ -33,8 +53,10 @@ const cartReducer = (state, action) => {
     }else {
         updatedItems = state.items.concat(action.item);
     }
+    // console.log(updatedItems);
     return {
           items: updatedItems,
+
           totalAmount: updatedTotalAmount
     //  return {
     //   items: action.items,
@@ -72,95 +94,77 @@ const cartReducer = (state, action) => {
     };
   }
   return defaultCartState;
+  // return state;
 };
 
 const CartProvider = (props) => {
   const authCtx = useContext(AuthContext);
-  // const emailForCrud = authCtx.email.replace("@", "").replace(".", "");
+  const storedEmail = localStorage.getItem('Email');
 
-  //chat gpt
-  // const[email,setEmail] = useState('');
-  // console.log(email);
+  // Check if the storedEmail is not null or undefined before manipulating it
+  const emailForCrud = storedEmail ? storedEmail.replace("@", "").replace(".", "") : null;
 
+  // const emailForCrud = localStorage.getItem('email').replace("@", "").replace(".", "");
+  console.log(emailForCrud);
   const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState);
+  // console.log(cartState);
 
   const addItemToCartHandler = (item) => {
+    // console.log(item);
+    // if (!item || typeof item !== 'object' || !('price' in item)) {
+    //   console.error('Invalid item:', item);
+    //   return;
+    // }
       dispatchCartAction({type: 'ADD', item: item});
+
+        // Log the state after the update
+    // console.log('Cart State after addItemToCartHandler:', cartState);
   };
 
     // useEffect hook to set the default cart value when the component mounts
 
 
-  //   useEffect(() => {
-  //   const setDefaultValue = async () => {
-  //           // Fetches cart data from Firebase and initializes the state
-  //       await fetch(
-  //       // `https://react-ecomm-43750-default-rtdb.firebaseio.com/cart/${emailForCrud}.json`
-  //       `https://react-post-request-3c49a-default-rtdb.firebaseio.com/cart/${emailForCrud}.json`
+    useEffect(() => {
+    const setDefaultValue = async () => {
+            // Fetches cart data from Firebase and initializes the state
+        await fetch(
+        `https://react-ecomm-43750-default-rtdb.firebaseio.com/cart.json`
+      )
+        .then((res) => {
+          // console.log(res);
+          return res.json();
+        })
+        .then((data) => {
+          const loadedObj=[];
+          for (const id in data) {
+            console.log(loadedObj.push({id,...data[id]}))
+        }
+      
+    
+          // console.log(data,'Incartprovider');
+         
+          dispatchCartAction({
+            type: "ADD",
+            // item: data|| [],
+            item:loadedObj,
+            totalAmount: data || 0,
+          });
+          // Log the state after the update
+        // console.log('Cart State after setDefaultValue:', cartState);
+        }) 
+        .catch((err) => console.log(err))  
+       };
+    // if (emailForCrud) {
+      setDefaultValue();
+    
+    // }
+    // addItemToCartHandler();
+  }, []);
 
-  //     )
-  //       .then((res) => {
-  //         return res.json();
-  //       })
-  //       .then((data) => {
-  //         dispatchCartAction({
-  //           type: "ADD",
-  //           items: data?.items || [],
-  //           totalAmount: data?.totalAmount || 0,
-  //         });
-  //         // console.log(data);
-  //       })
-  //       .catch((err) => console.log(err));
-
-  //   };
-  //   if (emailForCrud) {
-  //     setDefaultValue();
-  //   }
-  // }, [emailForCrud]);
+ 
 
 
-// const addItemToCartHandler = async (product) => {
-//   console.log('cartState.items:',cartState.items);
-//   const updatedAmount =
-//     cartState.totalAmount + product.price * product.amount;
-//     const existingCartItemIndex = cartState.items.findIndex(
-//       ({ item}) => item === product.item
-//       );
-   
-//   const existingCartItem = cartState.items[existingCartItemIndex];
-//   let updatedItems;
 
-//   if (existingCartItem) {
-//     const updatedItem = {
-//       ...existingCartItem,
-//       amount: existingCartItem.amount + product.amount,
-//     };
-//     updatedItems = [...cartState.items];
-//     updatedItems[existingCartItemIndex] = updatedItem;
-//   } else {
-//     updatedItems = cartState.items.concat(product);
-//   }
-//   dispatchCartAction({
-//     type: "ADD",
-//     items: updatedItems,
-//     totalAmount: updatedAmount,
-//   });
-//   await fetch(
-//     // `https://react-ecomm-43750-default-rtdb.firebaseio.com/cart/${emailForCrud}.json`,
-//     `https://react-post-request-3c49a-default-rtdb.firebaseio.com/cart/${emailForCrud}.json`,
-//   {
-//       method: "PUT",
-//       body: JSON.stringify({
-//       items: updatedItems,
-//         totalAmount: updatedAmount,
-//       }),
-//     }
-//   )
-//     .then((res) => {
-//       return res.json();
-//     })
-//     .catch((err) => console.log(err));
-// };
 
 
 
@@ -180,9 +184,7 @@ const cartContext = {
   totalAmount: cartState.totalAmount,
   addItem: addItemToCartHandler,
   removeItem: removeItemFromCartHandler,
-  // chatgpt
-  // email,
-  // setEmail,
+ dispatchCartAction: dispatchCartAction,
   
   // clearCart: clearCartHandler,
 };
@@ -197,6 +199,5 @@ return (
 };
 
 export default CartProvider;
-// chatgpt code
 
-// export const useCart = () => useContext(CartContext);
+

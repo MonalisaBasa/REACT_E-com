@@ -1,5 +1,6 @@
 import React, { useContext,useRef,useEffect} from 'react'
 import CartContext from '../Store/CartContext'
+import AuthContext from '../Store/AuthContext';
 import {Form,Button} from 'react-bootstrap';
 import ProductsItem from './productsItem';
 
@@ -94,42 +95,75 @@ import ProductsItem from './productsItem';
   
   // export default ProductToCart;
   const ProductToCart = (props) => {
+    // console.log(props);
     const cartCtx = useContext(CartContext);
+    const authCtx = useContext(AuthContext);
     const amountRef = useRef();
+
+    // const EmailId = authCtx.email;
+    // console.log(EmailId);
+
+
+    
+   
+   
   
-    useEffect(() => {
-      console.log("Updated cartCtx.items:", cartCtx.items);
-    }, [cartCtx.items]);
+    // useEffect(() => {
+    // //   console.log("Updated cartCtx.items:", cartCtx.items);
+    // //  if(cartCtx.items.length > 0){
+    // //     senddatatoapi(cartCtx);
+    // //   }
+    // // senddatatoapi(cartCtx);
+     
+    // }, [cartCtx.items]); // Only trigger when cartCtx.items change
+
+    
+  
+    // const senddatatoapi = async () => {
+
+    //   try {
+    //     const response = await fetch(
+    //       "https://react-ecomm-43750-default-rtdb.firebaseio.com/cart.json",
+    //       {
+    //         method: "POST",
+    //         body: JSON.stringify({ items: ite.items }),
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //       }
+    //     );
+  
+    //     if (!response.ok) {
+    //       throw new Error("Failed to store data in Firebase");
+    //     }
+  
+    //     const responseData = await response.json();
+    //     console.log("Data stored in Firebase:", responseData);
+    //   } catch (error) {
+    //     console.error("Error:", error.message);
+    //   }
+    // };
+
+    
+   
   
     const submitHandler = async (event) => {
       event.preventDefault();
   
       const enteredAmount = amountRef.current.value;
       const enteredAmountNumber = +enteredAmount;
+      console.log(enteredAmountNumber);
+      // senddatatoapi();
+
   
-      try {
-        await props.onAddToCart(enteredAmountNumber);
-  
-        // No need to log here
-  
-        const response = await fetch(`https://react-ecomm-43750-default-rtdb.firebaseio.com/cart.json`, {
-          method: "POST",
-          body: JSON.stringify({ items: cartCtx.items }), // Send only the items to Firebase
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-  
-        if (!response.ok) {
-          throw new Error("Failed to store data in Firebase");
-        }
-  
-        const responseData = await response.json();
-        console.log("Data stored in Firebase:", responseData);
-      } catch (error) {
-        console.error("Error:", error.message);
-      }
-    }
+     props.onAddToCart(enteredAmountNumber);
+
+
+      
+
+      
+    };
+   
   
     return (
       <div>
@@ -146,13 +180,13 @@ import ProductsItem from './productsItem';
               defaultValue="1"
               style={{ width: "4rem", height: "2rem" }}
             />
-            <Button type="submit" className="ms-5">
+            <Button type='submit' className="ms-5">
               Add To Cart
             </Button>
           </Form.Group>
         </Form>
       </div>
     );
-  }
+  };
   
   export default ProductToCart;

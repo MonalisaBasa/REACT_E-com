@@ -49,48 +49,53 @@ const AuthForm = () => {
     setIsLoading(true);
     setError(null);
     let url;
-    if (isLogin) {
-      url='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAy1x8U_13KlYqai3cwii7J-Hdy4Wv4PMM'
-    }
-    // if (hasAccount) {
-    //   url =
-    //     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAy1x8U_13KlYqai3cwii7J-Hdy4Wv4PMM'
-    //   fetch(url, {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       email: enteredEmail,
-    //       password: enteredpassword,
-    //       returnSecureToken: true,
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   })
-    //     .then((res) => {
-    //       setIsLoading(false);
-    //       if (res.ok) {
-    //         return res.json();
-    //       } else {
-    //         return res.json().then((data) => {
-    //           let errorMessage = "Authentication Failed";
-
-    //           throw new Error(errorMessage);
-    //         });
-    //       }
-    //     })
-    //     .then((data) => {
-    //       authCtx.login(data.idToken,
-    //         data.email);
-    //       navigate("/store");
-    //     })
-    //     .catch((err) => {
-    //       alert(err.message);
-    //     });
-
-    //   emailInputRef.current.value = "";
-    //   passwordInputRef.current.value = "";
-
+    // if (isLogin) {
+    //   url='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAy1x8U_13KlYqai3cwii7J-Hdy4Wv4PMM'
     // }
+   
+    if (isLogin) {
+      url =
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAy1x8U_13KlYqai3cwii7J-Hdy4Wv4PMM'
+
+      
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredpassword,
+          returnSecureToken: true,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          setIsLoading(false);
+          if (res.ok) {
+            const data = res.data;
+            return res.json();
+
+          } else {
+            return res.json().then((data) => {
+              let errorMessage = "Authentication Failed";
+
+              throw new Error(errorMessage);
+            });
+          }
+        })
+        .then((data) => {
+          authCtx.login(data.idToken,data.email);
+          localStorage.setItem("Email",data.email);
+          navigate("/store");
+        })
+      .catch((err) => {
+          alert(err.message);
+        });
+
+      emailInputRef.current.value = "";
+      passwordInputRef.current.value = "";
+
+    }
        else {
        url='https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAy1x8U_13KlYqai3cwii7J-Hdy4Wv4PMM'
       };
@@ -126,8 +131,8 @@ const AuthForm = () => {
     })
     .then((data) =>{
       console.log("Data",data);
-      authCtx.login(data.idToken);
-      // authCtx.login(data.idToken,data.email);
+      // authCtx.login(data.idToken);
+      authCtx.login(data.idToken,data.email);
       // navigate('/Homepage');
       navigate('/store');
     })

@@ -3,77 +3,44 @@ import {React,useEffect,useState,useContext,useReducer} from 'react'
 import Header from '../Components/Header/Header';
 import Footer from '../About/Footer';
 import Product from '../Components/Body/product';
+import CartContext from '../Components/Store/CartContext';
 import AuthContext from '../Components/Store/AuthContext';
 
 const StorePage = () => {
-  // const [firebaseData,setFirebaseData] = useState(null);
+  // const cartCtx = useContext(CartContext);
+  // const authCtx = useContext(AuthContext);
+
+
 
   // useEffect(() => {
-  //   const fetchDataFromFirebase = async() =>{
-  //     try {
-  //       const response = await fetch(`https://react-ecomm-43750-default-rtdb.firebaseio.com/cart.json`,{
-  //         method: "GET",
-         
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
+  //   const fetchData = async () => {
+  //     if (authCtx.email) {
+  //       try {
+  //         // Fetch cart data for the logged-in user from Firebase
+  //         const response = await fetch(`https://react-ecomm-43750-default-rtdb.firebaseio.com/cart/${authCtx.email}.json`);
   //         if (!response.ok) {
-  //           throw new Error('Failed to fetch data from Firebase');
+  //           throw new Error('Failed to fetch cart data from Firebase');
   //         }
-  //         const data = await response.json();
-  //         setFirebaseData(data);
-  //       }catch (error){
-  //         console.error('Error fetching data from Firebase:', error);
+
+  //         const cartData = await response.json();
+
+  //         // Update the cart context with the fetched data
+  //         // cartCtx.updateCart(cartData);
+  //         dispatchCartAction({
+  //           type: 'ADD',
+  //           items: cartData?.items || [],
+  //           totalAmount: cartData?.totalAmount || 0,
+  //         });
+  //       } catch (error) {
+  //         console.error('Error fetching cart data:', error.message);
   //       }
-
-  //     };
-  //     fetchDataFromFirebase();
-  
-  // },[]);
-  // const [firebaseData, setFirebaseData] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchDataFromFirebase = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         'https://react-ecomm-43750-default-rtdb.firebaseio.com/cart.json'
-  //       );
-  //       console.log(response);
-
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch data from Firebase');
-  //       }
-
-  //       const data = await response.json();
-  //       setFirebaseData(data);
-  //     } catch (error) {
-  //       console.error('Error fetching data from Firebase:', error);
   //     }
   //   };
 
-  //   fetchDataFromFirebase();
-  // }, []);
+  //   // Call the fetchData function when the component mounts and when the user logs in
+  //   fetchData();
+  // }, [authCtx.email]); // Dependency on authCtx.email ensures this runs when the user logs in
 
-  // // Load cart data from local storage on component mount
-  // useEffect(() => {
-  //   const savedCart = localStorage.getItem('cart');
-  //   if (savedCart) {
-  //     const parsedCart = JSON.parse(savedCart);
-  //     // Use the parsedCart data as needed
-  //   }
-  // }, []);
-
-  // // Save cart data to local storage whenever the firebaseData changes
-  // useEffect(() => {
-  //   if (firebaseData) {
-  //     localStorage.setItem('cart', JSON.stringify(firebaseData));
-  //   }
-  // }, [firebaseData]);
-
- 
-
-  
   return (
     <div>
         <Header/>

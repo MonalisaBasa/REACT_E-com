@@ -5,6 +5,8 @@ import CartContext from './CartContext';
 const AuthContext =React.createContext({
     token: '',
     email:'',
+//    to store email in loaclstorage
+    emailHand: (email) =>{},
     isLoggedIn: false,
     login: (token) => {},
     logout: () =>{} 
@@ -15,15 +17,32 @@ export const AuthContextProvider = (props) =>{
   
     const[token,setToken] = useState(initialToken);
     const[email,setEmail] = useState("");
+    console.log(email);
    
     const userIsLoggedIn =!!token;
+//    chatgpt
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+        const storedEmail = localStorage.getItem("email");
+    
+        if (storedToken && storedEmail) {
+          loginHandler(storedToken, storedEmail);
+        }
+      }, []);
+
+    // const emailHandling = () =>{
+    //   setEmail(email);
+    // }
 
     // const loginHandler = (token) =>{
         const loginHandler = (token,email) => {
-        console.log(token);
+        console.log(email);
         setToken(token);
         setEmail(email);
         localStorage.setItem('token',token);
+        localStorage.getItem("email",email);
+
+        
     };
 
      // Set a timeout to clear the token after 5 minutes
@@ -47,11 +66,14 @@ export const AuthContextProvider = (props) =>{
         setToken(null);
         setEmail("");
         localStorage.removeItem('token');
+        localStorage.removeItem("email");
     };
 
     const contextValue = {
         token: token,
         email: email,
+        // emailHandler: emailHandling,
+        emailHand: setEmail,
         isLoggedIn: userIsLoggedIn,
         login: loginHandler,
         logout: logoutHandler,
